@@ -1,8 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import ProductIndex from "./component/product/ProductIndex";
-import {Routes,Route } from 'react-router-dom';
-import { ProductDetails } from './component/product/ProductDetails';
+import {Routes,Route } from "react-router-dom";
+import { ProductDetails } from "./component/product/ProductDetails";
+
 
 
 function App() {
@@ -13,7 +13,6 @@ function App() {
       <Route path='/' element={<ProductIndex/>}/>
        <Route path='productDetails' element={<ProductDetails/>}/>
 			</Routes>
-      
     </div>
   );
 }

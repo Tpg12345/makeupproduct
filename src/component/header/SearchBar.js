@@ -1,67 +1,67 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import { FormControl, makeStyles, MenuItem, Select } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { fetchSearchProduct } from '../reducer/CallProductAPIReducer';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete, { createFilterOptions } from "@material-ui/lab/Autocomplete";
+import { FormControl, makeStyles, MenuItem, Select } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { fetchSearchProduct } from "../reducer/CallProductAPIReducer";
 
 const useStyles = makeStyles({
 
   searchbox: {
-    borderRadius: '0px 20px 20px 0px'
+    borderRadius: "0px 20px 20px 0px"
   },
   searchdiv: {
     maxWidth: "1000px",
-    marginBottom: '100px',
-    marginLeft: '150px'
+    marginBottom: "100px",
+    marginLeft: "150px"
   },
   div1: {
-    width: '100px',
-    float: 'left',
+    width: "100px",
+    float: "left",
 
   },
   div2: {
-    width: '880px',
-    float: 'right'
+    width: "900px",
+   float:"right"
   },
   formControl: {
     minWidth: 120,
-    borderRadius: '20px 0px 0px 20px'
+    borderRadius: "20px 0px 0px 20px"
   }
 });
 
 export default function SearchBar(props) {
 
-  const dispatch = useDispatch()
-  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
+  const dispatch = useDispatch();
+  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
   const classes = useStyles();
-  const [searchParam, setSearchParam] = useState('Brand');
-
+  const [searchParam, setSearchParam] = useState("Brand");
   const inputChangeHandler = (event, value, reason) => {
     switch (reason) {
-      case 'input':
+      case "input":
         setAutoCompleteOpen(!!value);
         break;
-      case 'reset':
-      case 'clear':
+      case "reset":
+      case "clear":
         setAutoCompleteOpen(false);
         break;
       default:
         console.log(reason);
-    };
-  }
-  const onChangeHandler = (event, value) => {
-    if (searchParam === 'Brand') {
-      sessionStorage.setItem('searchItem', value.brand);
-    }else  if (searchParam === 'Product Type') {
-      sessionStorage.setItem('searchItem', value.product_type);
-    }else if (searchParam === 'Category') {
-      sessionStorage.setItem('searchItem', value.category);
     }
-    sessionStorage.setItem('searchParam',searchParam);
-    dispatch(fetchSearchProduct)
-  }
+  };
+  const onChangeHandler = (event, value) => {
+    if (searchParam === "Brand") {
+      sessionStorage.setItem("searchItem", value.brand);
+    }else  if (searchParam === "Product Type") {
+      sessionStorage.setItem("searchItem", value.product_type);
+    }else if (searchParam === "Category") {
+      sessionStorage.setItem("searchItem", value.category);
+    }
+    sessionStorage.setItem("searchParam",searchParam);
+    dispatch(fetchSearchProduct);
+  };
 
   const filterOptions = createFilterOptions({
     stringify: ({ product_type }) => `${product_type}`
@@ -69,12 +69,14 @@ export default function SearchBar(props) {
 
   const onChangeHandlerOption = (event) => {
     setSearchParam(event.target.value);
-  }
+  };
 
   return (
-    <div className={classes.searchdiv}>
+    // <div className={classes.searchdiv}>
+      <>
+      {/* // <div className={classes.searchdiv}> */}
       <div className={classes.div1}>
-        <FormControl variant="outlined" className={classes.formControl} >
+        <FormControl variant="outlined" className={classes.formControl}>
           <Select
             className={classes.formControl}
             labelId="demo-simple-select-outlined-label"
@@ -82,13 +84,13 @@ export default function SearchBar(props) {
             value={searchParam}
             onChange={onChangeHandlerOption}
           >
-            <MenuItem value={'Brand'} selected={true}>Brand</MenuItem>
-            <MenuItem value={'Product Type'}>Product Type</MenuItem>
-            <MenuItem value={'Category'}>Category</MenuItem>
+            <MenuItem value={"Brand"} selected={true}>Brand</MenuItem>
+            <MenuItem value={"Product Type"}>Product Type</MenuItem>
+            <MenuItem value={"Category"}>Category</MenuItem>
           </Select>
         </FormControl>
       </div>
-      <div className={classes.div2} >
+      <div className={classes.div2}>
         <Autocomplete
           freeSolo
           disableClearable={true}
@@ -100,17 +102,17 @@ export default function SearchBar(props) {
           getOptionLabel={({ product_type, category, brand }) => {
             // this is how our option will be displayed when selected
             // remove the `id` here
-            if (searchParam === 'Brand') {
+            if (searchParam === "Brand") {
               return { brand };
-            } else if (searchParam === 'Product Type') {
+            } else if (searchParam === "Product Type") {
               return { product_type };
-            } else if (searchParam === 'Category') {
+            } else if (searchParam === "Category") {
               return { category };
             }
-          }}
+          } }
           filterSelectedOptions
           renderOption={({ product_type, category, brand }) => {
-            if (searchParam === 'Brand' && brand !== '') {
+            if (searchParam === "Brand" && brand !== "") {
               return (
                 <div>
                   <div>
@@ -118,7 +120,7 @@ export default function SearchBar(props) {
                   </div>
                 </div>
               );
-            } else if (searchParam === 'Product Type' && product_type !== '') {
+            } else if (searchParam === "Product Type" && product_type !== "") {
               return (
                 <div>
                   <div>
@@ -126,7 +128,7 @@ export default function SearchBar(props) {
                   </div>
                 </div>
               );
-            } else if (searchParam === 'Category' && category !== '') {
+            } else if (searchParam === "Category" && category !== "") {
               return (
                 <div>
                   <div>
@@ -135,14 +137,17 @@ export default function SearchBar(props) {
                 </div>
               );
             }
-          }}
+          } }
           renderInput={(params) => (
             <><TextField {...params}
               variant="outlined"
-              InputProps={{ ...params.InputProps, type: 'search', className: classes.searchbox }}></TextField></>
-          )}
-        />
-      </div>
-    </div>
+              InputProps={{ ...params.InputProps, type: "search", className: classes.searchbox }}></TextField></>
+          )} />
+      </div></>
+    
   );
 }
+
+SearchBar.propTypes = {
+  item: PropTypes.array
+};

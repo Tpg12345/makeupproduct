@@ -1,23 +1,23 @@
-import { Button, Card,CardActions, CardContent, CardHeader, CardMedia, Container,makeStyles, Typography } from '@material-ui/core';
-import React from 'react'
+import { Button, Card,CardActions, CardContent, CardHeader, CardMedia, Container,makeStyles, Typography } from "@material-ui/core";
+import React from "react";
 
 const useStyles = makeStyles({
   root: {
 
   },
   media: {
-    width: '500px',
-    height: '400px',
-    marginLeft: '5px'
+    width: "500px",
+    height: "400px",
+    marginLeft: "5px"
   },
   title: {
-    textAlign: 'center'
+    textAlign: "center"
   },
   circle:{
-    height: '30px',
-  width: '30px',
-  borderRadius: '50%',
-  display: 'inline-block',
+    height: "30px",
+  width: "30px",
+  borderRadius: "50%",
+  display: "inline-block",
   }
   
 });
@@ -72,5 +72,5 @@ export const ProductDetails = () => {
         </CardContent>
       </Card>
     </Container>
-  )
-}
+  );
+};

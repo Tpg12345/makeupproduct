@@ -1,34 +1,38 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, FormControlLabel, FormGroup, Grid, makeStyles, Radio, RadioGroup, TextField, Typography } from '@material-ui/core'
-import Rating from '@material-ui/lab/Rating';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import React, { useState } from 'react'
+import { Accordion, AccordionDetails, AccordionSummary, Button, FormControlLabel, FormGroup,ListItemIcon, ListItemText, makeStyles, Radio, RadioGroup, TextField, Typography } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import React, { useState } from "react";
 import ProductInfo from "../productConst/ProductInfo.json";
-import { useDispatch } from 'react-redux';
-import { fetchFilterProduct } from '../reducer/CallProductAPIReducer';
+import { useDispatch } from "react-redux";
+import { fetchFilterProduct } from "../reducer/CallProductAPIReducer";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import PeopleIcon from "@material-ui/icons/People";
+import Star from "@material-ui/icons/Star";
 const useStyles = makeStyles({
 
   filterdiv: {
-    float: 'left',
-    width: '270px',
+    float: "left",
+    width: "270px",
   },
   priceMin: {
-    width: '100px'
+    width: "100px"
   },
   priceMax: {
-    width: '100px',
-    marginLeft: '20px'
+    width: "100px",
+    marginLeft: "20px"
   },
   filtergrid: {
     flexGrow: 1,
   },
   applybutton: {
-    marginTop: '10px'
+    marginTop: "10px"
   }
 });
 export const ApplyFilter = () => {
-  const dispatch = useDispatch()
-  const [brand, setBrand] = useState('');
-  const [Tag, setTag] = useState('');
+  const dispatch = useDispatch();
+  const [brand, setBrand] = useState("");
+  const [Tag, setTag] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [value, setValue] = useState(0);
   const classes = useStyles();
@@ -43,51 +47,52 @@ export const ApplyFilter = () => {
   const handleTagChange = (event) => {
     setTag(event.target.value);
   };
+ 
   const handleApplyFliter = () => {
-    let brandVal = '';
-    let tagVal = '';
-    var brand = document.querySelectorAll('input[name="brand"]:checked');
-    var tag = document.querySelectorAll('input[name="tag"]:checked');
-    var priceMin = document.querySelector('input[name="pricemin"]');
-    var priceMax = document.querySelector('input[name="pricemax"]');
-    var rating = document.querySelector('input[name="rating"]');
+    let brandVal = "";
+    let tagVal = "";
+    var brand = document.querySelectorAll("input[name=\"brand\"]:checked");
+    var tag = document.querySelectorAll("input[name=\"tag\"]:checked");
+    var priceMin = document.querySelector("input[name=\"pricemin\"]");
+    var priceMax = document.querySelector("input[name=\"pricemax\"]");
     if (brand.length !== 0) {
       for (let i = 0; i < brand.length; i++) {
         brandVal += brand[i].value;
       }
-      sessionStorage.setItem('brand', brandVal);
-    }else if(sessionStorage.getItem('brand')){
-      sessionStorage.removeItem('brand');
+      sessionStorage.setItem("brand", brandVal);
+    }else if(sessionStorage.getItem("brand")){
+      sessionStorage.removeItem("brand");
     } if (tag.length !== 0) {
       for (let i = 0; i < tag.length; i++) {
         tagVal += tag[i].value;
       }
-      sessionStorage.setItem('tag', tagVal)
-    }else if(sessionStorage.getItem('tag')){
-      sessionStorage.removeItem('tag');
+      sessionStorage.setItem("tag", tagVal);
+    }else if(sessionStorage.getItem("tag")){
+      sessionStorage.removeItem("tag");
     } if (priceMin.value !== "" && priceMax.value !== "") {
-      sessionStorage.setItem('priceMin', priceMin.value);
-      sessionStorage.setItem('priceMax', priceMax.value);
-    } else if(sessionStorage.getItem('priceMin')){
-      sessionStorage.removeItem('priceMin')
-      sessionStorage.removeItem('priceMax')
-    } if (rating.value !== "") {
-      sessionStorage.setItem('rating', rating.value);
+      sessionStorage.setItem("priceMin", priceMin.value);
+      sessionStorage.setItem("priceMax", priceMax.value);
+    } else if(sessionStorage.getItem("priceMin")){
+      sessionStorage.removeItem("priceMin");
+      sessionStorage.removeItem("priceMax");
+    } if (value !== 0) {
+      sessionStorage.setItem("rating", value);
     }
     dispatch(fetchFilterProduct);
-  }
+  };
   return (
-    <div className={classes.filterdiv} >
-      <Grid className={classes.filtergrid}>
-        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+    <div >
+    {/* //   <Grid className={classes.filtergrid}> */}
+        <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              Brand
-            </Typography>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Brand" />
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -101,18 +106,21 @@ export const ApplyFilter = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <Accordion expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2bh-content"
             id="panel2bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Tag</Typography>
+            <ListItemIcon>
+              <ShoppingCartIcon />
+            </ListItemIcon>
+            <ListItemText primary="Tag" />
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
               <FormGroup>
-                <RadioGroup name="brand" onChange={handleTagChange}>
+                <RadioGroup name="brand" value={Tag} onChange={handleTagChange}>
                   {ProductInfo.Tag.map((Tag, index) => (
                     <FormControlLabel key={index} control={<Radio name='tag' value={Tag} />} label={Tag} />
                   ))}
@@ -121,15 +129,16 @@ export const ApplyFilter = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+        <Accordion expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3bh-content"
             id="panel3bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              Price Range
-            </Typography>
+           <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Price Rang" />
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -138,19 +147,26 @@ export const ApplyFilter = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+        <Accordion expanded={expanded === "panel4"} onChange={handleChange("panel4")}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel4bh-content"
             id="panel4bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Rating Range</Typography>
+          <ListItemIcon>
+              <Star />
+            </ListItemIcon>
+            <ListItemText primary="Rating" />
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
               <Rating name="rating" value={value} onChange={(event, newValue) => {
-                setValue(newValue);
-              }} />
+                console.log(value,"previous number");
+            setValue(newValue);
+            console.log(newValue);
+          }}
+                
+             />
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -159,7 +175,7 @@ export const ApplyFilter = () => {
             Apply Filter
           </Button>
         </Typography>
-      </Grid>
+    {/* //   </Grid> */}
     </div>
-  )
-}
+  );
+};
