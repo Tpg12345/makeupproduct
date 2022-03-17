@@ -127,10 +127,12 @@ const ProductIndex = () => {
 	};
 	// const fixedHeightPaper = clsx(classes.paper);
 	if (state.length === 0) {
+		console.log("first test here");
 		return (
 			<div>Loading.....</div>
 		);
 	} else if (state[1] === false && state[0].length !== 0) {
+		console.log("Test for state have product data");
 		return (
 			<div className={classes.root}>
 				<CssBaseline />
@@ -180,7 +182,7 @@ const ProductIndex = () => {
 					<Container maxWidth="lg" className={classes.container}>
 						<Grid container spacing={3}>
 							<Grid item  xs={12} >
-								<Navigation/>
+								<Navigation  resultType={state[2]}/>
 							</Grid>
 							<Grid item xs={10}>
 								<SearchBar item={state[0]} />
@@ -204,7 +206,7 @@ const ProductIndex = () => {
 
 		);
 	} else if (state[0].length === 0) {
-
+		console.log("state have no product");
 		return (
 			<Container maxWidth='lg'>
 				<Header />

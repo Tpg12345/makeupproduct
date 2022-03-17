@@ -80,6 +80,7 @@ export const ApplyFilter = () => {
     }
     dispatch(fetchFilterProduct);
   };
+  console.log("Apply Filter before return");
   return (
     <div >
     {/* //   <Grid className={classes.filtergrid}> */}
@@ -95,7 +96,7 @@ export const ApplyFilter = () => {
             <ListItemText primary="Brand" />
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            {/* <Typography> */}
               <FormGroup>
                 <RadioGroup name="brand" value={brand} onChange={handleBrandChange}>
                   {ProductInfo.Brand.map((brand, index) => (
@@ -103,7 +104,7 @@ export const ApplyFilter = () => {
                   ))}
                 </RadioGroup>
               </FormGroup>
-            </Typography>
+            {/* </Typography> */}
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
@@ -118,7 +119,7 @@ export const ApplyFilter = () => {
             <ListItemText primary="Tag" />
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            {/* <Typography> */}
               <FormGroup>
                 <RadioGroup name="brand" value={Tag} onChange={handleTagChange}>
                   {ProductInfo.Tag.map((Tag, index) => (
@@ -126,7 +127,7 @@ export const ApplyFilter = () => {
                   ))}
                 </RadioGroup>
               </FormGroup>
-            </Typography>
+            {/* </Typography> */}
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
@@ -141,10 +142,10 @@ export const ApplyFilter = () => {
             <ListItemText primary="Price Rang" />
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            {/* <Typography> */}
               <TextField className={classes.priceMin} type='number' name='pricemin' id="outlined-basic" label="Min Price" size="small" variant="outlined" />
               <TextField className={classes.priceMax} type='number' name='pricemax' id="outlined-basic" label="Max Price" size="small" variant="outlined" />
-            </Typography>
+            {/* </Typography> */}
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === "panel4"} onChange={handleChange("panel4")}>
@@ -159,7 +160,7 @@ export const ApplyFilter = () => {
             <ListItemText primary="Rating" />
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            {/* <Typography> */}
               <Rating name="rating" value={value} onChange={(event, newValue) => {
                 console.log(value,"previous number");
             setValue(newValue);
@@ -167,7 +168,7 @@ export const ApplyFilter = () => {
           }}
                 
              />
-            </Typography>
+            {/* </Typography> */}
           </AccordionDetails>
         </Accordion>
         <Typography>

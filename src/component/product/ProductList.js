@@ -8,7 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Link } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink} from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -31,7 +31,7 @@ export const ProductList = (props) => {
     const classes = useStyles();
     return (
         <>
-            <Grid container spacing={2} xs={12}>
+            <Grid container spacing={2}>
                 {props.currProdPage.map((item, index) => (
                     <Grid item key={index} xs={3}>
                         <Card className={classes.root}>

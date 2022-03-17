@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchBar(props) {
-
+  console.log("Search Bar Page Stated");
   const dispatch = useDispatch();
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
   const classes = useStyles();
