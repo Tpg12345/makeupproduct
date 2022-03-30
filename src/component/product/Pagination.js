@@ -10,14 +10,12 @@ const useStyles = makeStyles({
         width: "100%",
         float: "right"
     }
-
 });
 
 export const Paginations = (props) => {
     const classes = useStyles();
     let totalPage = Math.floor(props.totalPage);
     console.log(totalPage, "total page");
-
     if (totalPage > 1) {
         return (
             <Grid className={classes.paginate} spacing={4} xs={8} >

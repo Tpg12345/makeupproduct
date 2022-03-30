@@ -79,5 +79,33 @@
             "oil free ",
             "purpicks ",
             "silicone free ",
-            "water free"]
+            "water free"],
+            "Category":[
+                "Powder",
+                "Cream",
+                "Pencil",
+                "Liquid",
+                "Gel",
+                "Palette",
+                "Concealer",
+                "Contour",
+                "Bb cc",
+                "Mineral",
+                "Highlighter",
+                "Lipstick",
+                "Lip gloss",
+                "Lip stain"
+            ],
+            "ProductType":[
+                "Blush",
+                "Bronzer",
+                "Eyebrow",
+                "Eyeliner",
+                "Eyeshadow",
+                "Foundation",
+                "Lip liner",
+                "Lipstick",
+                "Mascara",
+                "Nail polish"
+            ]
     }
