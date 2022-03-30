@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete, { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import { FormControl, Grid, makeStyles, MenuItem, Select } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { fetchSearchProduct } from "../reducer/CallProductAPIReducer";
+import { loadSearchProducts } from "../reducer/ProductThunk";
 import ProductInfo from "../productConst/ProductInfo.json";
 
 const useStyles = makeStyles({
@@ -46,7 +46,7 @@ export default function SearchBar() {
   const onChangeHandler = (event, value) => {
     sessionStorage.setItem("searchItem", value);
     sessionStorage.setItem("searchParam", searchParam);
-    dispatch(fetchSearchProduct);
+    dispatch(loadSearchProducts());
   };
 
   const filterOptions = createFilterOptions({

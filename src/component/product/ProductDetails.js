@@ -56,7 +56,7 @@ export const ProductDetails = () => {
           <Typography gutterBottom variant="h6" component="div">
             <b> Color Option:</b>
           </Typography>
-          <Grid container spacing={1}>
+          <Grid container >
             {product.product_colors.map((productcolor, index) => (
               <Grid key={index} item xs={2}>
                 <Typography className={classes.circle} style={{ background: productcolor.hex_value }} gutterBottom variant="h6" component="div">

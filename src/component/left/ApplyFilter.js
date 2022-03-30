@@ -3,7 +3,7 @@ import Rating from "@material-ui/lab/Rating";
 import React, { useState } from "react";
 import ProductInfo from "../productConst/ProductInfo.json";
 import { useDispatch } from "react-redux";
-import { fetchFilterProduct } from "../reducer/CallProductAPIReducer";
+import { loadFilterProducts } from "../reducer/ProductThunk";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/AttachMoney";
@@ -88,7 +88,7 @@ export const ApplyFilter = () => {
      if (value !== 0) {
       sessionStorage.setItem("rating", value);
     }
-    dispatch(fetchFilterProduct);
+    dispatch(loadFilterProducts());
   };
   console.log("Apply Filter before return");
   return (

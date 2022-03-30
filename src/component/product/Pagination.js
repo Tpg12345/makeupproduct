@@ -18,8 +18,10 @@ export const Paginations = (props) => {
     console.log(totalPage, "total page");
     if (totalPage > 1) {
         return (
-            <Grid className={classes.paginate} spacing={4} xs={8} >
+            <Grid container className={classes.paginate} spacing={12} >
+            <Grid   item xs={12} >
                 <Pagination count={totalPage} page={props.currPage} color="primary" variant="outlined" onChange={props.paginate} />
+            </Grid>
             </Grid>
         );
     } else {

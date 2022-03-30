@@ -2,7 +2,6 @@ import React, { useState,useEffect} from "react";
 import clsx from "clsx";
 import { Paginations } from "./Pagination";
 import { ProductList } from "./ProductList";
-// import { Header } from "../header/Header";
 import SearchBar from "../header/SearchBar";
 import { ApplyFilter } from "../left/ApplyFilter";
 import {useDispatch, useSelector } from "react-redux";
@@ -10,7 +9,7 @@ import { AppBar, Container, CssBaseline, Divider, Drawer, Grid, IconButton, List
 import { Navigation } from "../header/Navigation";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { fetchProduct } from "../reducer/CallProductAPIReducer";
+import { loadProducts } from "../reducer/ProductThunk";
 
 const drawerWidth = 240;
 
@@ -99,22 +98,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductIndex = () => {
-	const state = useSelector((state) => state.CallProductAPIReducer);
+	const { isLoading, products, errorMessage, searchfilter } = useSelector((state) => state.CallProductAPIReducer);
 	const dispatch = useDispatch();
-	console.log(state, "call api state");
+	console.log("error: ", errorMessage);
 	const [currPage, setCurrPage] = useState(1);
 	const productPerPage = 40;
 	let currProdPage = 0;
 	let totalPage = 0;
 	useEffect(()=>{
-	dispatch(fetchProduct);
+	dispatch(loadProducts());
 	},[]);
-	if (state.length !== 0 && state[1] === false) {
-
+	if (isLoading === false) {
 		const indexOfLastProd = currPage * productPerPage;
 		const indexofFirstProd = indexOfLastProd - productPerPage;
-		currProdPage = state[0].slice(indexofFirstProd, indexOfLastProd);
-		totalPage = state[0].length / productPerPage;
+		currProdPage = products.slice(indexofFirstProd, indexOfLastProd);
+		totalPage = products.length / productPerPage;
 	}
 
 	const showProductDetail = (event, index) => {
@@ -136,12 +134,12 @@ const ProductIndex = () => {
 		setOpen(false);
 	};
 	// const fixedHeightPaper = clsx(classes.paper);
-	if (state.length === 0) {
+	if (isLoading) {
 		console.log("first test here");
 		return (
 			<div>Loading.....</div>
 		);
-	} else if (state[1] === false && state[0].length !== 0) {
+	} else if (!isLoading && products.length !== 0) {
 		console.log("Test for state have product data");
 		return (
 			<div className={classes.root}>
@@ -185,14 +183,14 @@ const ProductIndex = () => {
 					<Container maxWidth="lg" className={classes.container}>
 						<Grid container spacing={3}>
 							<Grid item xs={12} >
-								<Navigation resultType={state[2]} />
+								<Navigation resultType={searchfilter} />
 							</Grid>
 							<Grid item xs={12} md={8} lg={12}>
-								<SearchBar item={state[0]} />
+								<SearchBar item={products} />
 							</Grid>
 							<Grid item xs={12} md={8} lg={12}>
 								<Paper  >
-									<ProductList currProdPage={currProdPage} item={state[0]} showProductDetail={showProductDetail} />
+									<ProductList currProdPage={currProdPage} item={products} showProductDetail={showProductDetail} />
 									{/* <ProductList  showProductDetail={showProductDetail} /> */}
 								</Paper>
 							</Grid>
@@ -205,7 +203,7 @@ const ProductIndex = () => {
 			</div>
 
 		);
-	} else if (state[0].length === 0) {
+	} else if (products.length === 0) {
 		console.log("state have no product");
 		return (
 			<><div className={classes.root}>
@@ -249,10 +247,10 @@ const ProductIndex = () => {
 					<Container maxWidth="lg" className={classes.container}>
 						<Grid container spacing={3}>
 							<Grid item xs={12}>
-								<Navigation resultType={state[2]} />
+								<Navigation resultType={searchfilter} />
 							</Grid>
 							<Grid item xs={12} md={8} lg={12}>
-								<SearchBar item={state[0]} />
+								<SearchBar item={products} />
 							</Grid>
 							<Grid item xs={12} md={8} lg={12}>
 								<div style={{ textAlign: "center" }}>No Product Available</div>
