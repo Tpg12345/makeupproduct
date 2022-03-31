@@ -108,7 +108,7 @@ const ProductIndex = () => {
 	useEffect(()=>{
 	dispatch(loadProducts());
 	},[]);
-	if (isLoading === false) {
+	if (isLoading === false && products !== null) {
 		const indexOfLastProd = currPage * productPerPage;
 		const indexofFirstProd = indexOfLastProd - productPerPage;
 		currProdPage = products.slice(indexofFirstProd, indexOfLastProd);
@@ -139,7 +139,7 @@ const ProductIndex = () => {
 		return (
 			<div>Loading.....</div>
 		);
-	} else if (!isLoading && products.length !== 0) {
+	} else if (!isLoading && products !== null) {
 		console.log("Test for state have product data");
 		return (
 			<div className={classes.root}>
@@ -203,7 +203,7 @@ const ProductIndex = () => {
 			</div>
 
 		);
-	} else if (products.length === 0) {
+	} else if (products === null) {
 		console.log("state have no product");
 		return (
 			<><div className={classes.root}>
